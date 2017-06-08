@@ -1,6 +1,6 @@
 var stage = new PIXI.Container(),
-renderer = PIXI.autoDetectRenderer(500, 500);
-renderer.backgroundColor = 0xffffff;
+renderer = PIXI.autoDetectRenderer(1200, 600);
+renderer.backgroundColor = 0xFFFFFF;
 renderer.autoResize = true;
 document.body.appendChild(renderer.view);
 var gameScene = new PIXI.Container();
@@ -32,6 +32,7 @@ PIXI.loader
   .add('images/klocek-rozowy.png')
   .add('images/klocek-niebieski.png')
   .add('images/klocek-jasnoniebieski.png')
+  .add('images/logo.png')
   .load(setup);
 
 
@@ -77,7 +78,7 @@ function initGameOverScene() {
   gameOverScene.addChild(message2);
   var message3 = new PIXI.Text(
   "Press ENTER",
-  {fontFamily: "Arial", fontSize: 32, fill: "black"});
+  {fontFamily: "Arial", fontSize: 32, fill: "white"});
   message3.position.set(180, 240);
   gameOverScene.addChild(message3);
 }
@@ -353,13 +354,21 @@ function drawBoard() {
   var message = new PIXI.Text(
   "Your score: ",
   {fontFamily: "Arial", fontSize: 32, fill: "black"});
-  message.position.set(340, 96);
+  message.position.set(50, 520);
   gameScene.addChild(message);
   scoreText = new PIXI.Text(
   "0",
   {fontFamily: "Arial", fontSize: 32, fill: "black"});
-  scoreText.position.set(360, 140);
+  scoreText.position.set(240, 520);
   gameScene.addChild(scoreText);
+
+  var welcome = new PIXI.Sprite.fromImage('images/tet.png');
+  welcome.position.set(340,10);
+  welcome.width = 900;
+  welcome.height = 500;
+  gameScene.addChild(welcome);
+    
+    
 }
 
 function clearBoardFromActualTetramino() {
