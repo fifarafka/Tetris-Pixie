@@ -45,6 +45,7 @@ function tetramino() {
   tetraminoT[3] = ['0','0','0','0'];
 
 
+
 switch(Math.floor((Math.random() * 7) + 1)) {
     case 1:
       return tetraminoI;
