@@ -35,8 +35,7 @@ function initGameOverScene() {
     gameOverScene.visible = false;
     gameScene.visible = false;
     firstScene.visible = true;
-    initBoard();
-    initGameScene();
+    clearMoves();
   }
   gameOverScene.addChild(playAgainButton);
 

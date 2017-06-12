@@ -23,6 +23,7 @@ function initFirstScene() {
     lvl = 250;
     firstScene.visible = false;
     gameScene.visible = true;
+    initGameScene();
     clearMoves();
     setMoves();
   }
@@ -47,6 +48,7 @@ function initFirstScene() {
     lvl = 175;
     firstScene.visible = false;
     gameScene.visible = true;
+    initGameScene();
     clearMoves();
     setMoves();
   }
@@ -71,6 +73,7 @@ function initFirstScene() {
     lvl = 75;
     firstScene.visible = false;
     gameScene.visible = true;
+    initGameScene();
     clearMoves();
     setMoves();
   }

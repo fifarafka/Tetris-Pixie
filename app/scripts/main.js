@@ -43,6 +43,7 @@ function initGameScene() {
   scoreText.text = points;
   scoreTextEnd.text = points;
   blocks.removeChildren(0, blocks.children.legth);
+  nextTetramino = tetramino();
 	newTetramino();
 }
 
@@ -54,13 +55,14 @@ function drawGameScene() {
   background.height = 800;
   gameScene.addChild(background);
   gameScene.addChild(blocks);
+  gameScene.addChild(nextTetraminoContainer);
   var pauseButton = new PIXI.Graphics();
   pauseButton.lineStyle(4, 0x051330, 1);
   pauseButton.beginFill(0x153956);
   pauseButton.drawRoundedRect(0, 0, 300, 100, 10);
   pauseButton.endFill();
   pauseButton.x = 750;
-  pauseButton.y = 450;
+  pauseButton.y = 550;
   pauseButton.interactive = true;
   pauseButton.cursor = 'pointer';
   pauseButton.click =  onPause.bind();
@@ -79,13 +81,21 @@ function drawGameScene() {
   }
   gameScene.addChild(pauseButton);
 
+  var nextText = new PIXI.Text(
+  "Next: ", style);
+  nextText.position.set(680, 330);
+  gameScene.addChild(nextText);
+
+
+
+
   pauseText = new PIXI.Text(
   "Pause", style);
-  pauseText.position.set(810, 460);
+  pauseText.position.set(810, 560);
   gameScene.addChild(pauseText);
   scoreText = new PIXI.Text(
   "0", style);
-  scoreText.position.set(1000, 300);
+  scoreText.position.set(1000, 220);
   gameScene.addChild(scoreText);
 }
 
@@ -107,8 +117,10 @@ function newTetramino() {
   tetraminoBoardY = 0;
   tetraminoX = tetraminoBoardX*20;
   tetraminoY = tetraminoBoardY*20;
-  actualTetraminoBoard = tetramino();
+  actualTetraminoBoard = nextTetramino;
+  nextTetramino = tetramino();
   drawTetramino();
+  drawNextTetramino();
 }
 
 function initBoard() {
@@ -314,14 +326,13 @@ function checkIfCanRotateTetramino(tempTetramino) {
 }
 
 function drawTetramino() {
-  var color = chooseColor();
   var counter = 0;
   for (var i=0; i<4; i++) {
     for (var j=0; j<4; j++) {
       var y = tetraminoBoardX+j;
       if (actualTetraminoBoard[i][j] == '2') {
         board[i][y]=actualTetraminoBoard[i][j];
-        let partTetramino = new PIXI.Sprite.fromImage(color);
+        let partTetramino = new PIXI.Sprite.fromImage(chooseColor(nextColor));
         partTetramino.x = tetraminoX+((j+moveX)*20);
         partTetramino.y = tetraminoY+((i+moveY)*20);
         partTetramino.width = 20;
@@ -335,8 +346,34 @@ function drawTetramino() {
   }
 }
 
-function chooseColor() {
-  switch(Math.floor((Math.random() * 6) + 1)) {
+function drawNextTetramino() {
+  nextTetraminoContainer.removeChildren(0, nextTetraminoContainer.children.legth);
+  var nextButton = new PIXI.Graphics();
+  nextButton.lineStyle(4, 0x051330, 1);
+  nextButton.beginFill(0x153956);
+  nextButton.drawRoundedRect(0, 0, 500, 200, 10);
+  nextButton.endFill();
+  nextButton.x = 650;
+  nextButton.y = 320;
+  nextTetraminoContainer.addChild(nextButton);
+  nextColor = Math.floor((Math.random() * 6) + 1);
+  for (var i=0; i<4; i++) {
+    for (var j=0; j<4; j++) {
+      if (nextTetramino[i][j] == '2') {
+        let partTetramino = new PIXI.Sprite.fromImage(chooseColor(nextColor));
+        partTetramino.x = j*40+920;
+        partTetramino.y = i*40+340;
+        partTetramino.width = 40;
+        partTetramino.height = 40;
+        nextTetraminoContainer.addChild(partTetramino);
+      }
+    }
+  }
+
+}
+
+function chooseColor(color) {
+  switch(color) {
     case 1:
       return 'images/klocek-zolty.png';
       break;
@@ -373,12 +410,12 @@ function drawBoard() {
 	}
 
   var napisTetris = new PIXI.Sprite.fromImage('images/napis1.png');
-  napisTetris.position.set(600, 100);
+  napisTetris.position.set(600, 20);
   gameScene.addChild(napisTetris);
 
   var message = new PIXI.Text(
   "Score: ", style);
-  message.position.set(750, 300);
+  message.position.set(710, 220);
   gameScene.addChild(message);
 
 

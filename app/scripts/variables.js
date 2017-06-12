@@ -24,6 +24,7 @@ var points = 0;
 var downInterval;
 var byKeysetInterval;
 var blocks = new PIXI.Container();
+var nextTetraminoContainer = new PIXI.Container();
 var fullRowNumbers = [];
 var scoreText;
 var scoreTextEnd;
@@ -32,6 +33,8 @@ var pause = false;
 var clicked = false;
 var downInterval;
 var byKeysetInterval;
+var nextTetramino;
+var nextColor = Math.floor((Math.random() * 6) + 1);
 var lvl = 200;
 var tetramino1, tetramino2, tetramino3, tetramino4, tetramino5, tetramino6, tetramino7;
 
